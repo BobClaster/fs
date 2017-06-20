@@ -27,6 +27,12 @@ body {
 	max-height: 290px;
 	overflow: hidden;
 }
+.top-post-single {
+	padding: 0 20px;
+}
+.top-post-single > img {
+	width: 100%;
+}
 
 .img-thumbnail-post {
     margin: 30px 20px 0 0;
