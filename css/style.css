@@ -20,30 +20,58 @@ body {
 	float: right;
 	margin: 10px;
 }
-
+/*h2 {
+	margin: 0;     
+	color: #666;
+	padding-top: 90px;
+	font-size: 52px;
+	font-family: "trebuchet ms", sans-serif;    
+}*/
+		
+.item {
+	background: #333;    
+	text-align: center;
+	height: 300px !important;
+}
+.carousel {
+	margin-top: 20px;
+}
+/*TOP POST*/
 .top-post {
 	position: relative;
 	padding: 50px;
-	max-height: 290px;
-	overflow: hidden;
+	max-height: 270px;
+	
 }
 .top-post-single {
 	padding: 0 20px;
 }
-.top-post-single > img {
+.top-post-single-img {
 	width: 100%;
+	max-height: 190px;
 }
-
+.top-post-single-title {
+	position: absolute;
+    bottom: -10px;
+    left: 25px;
+    right: 5px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+    color: #666;
+}
 .img-thumbnail-post {
-    margin: 30px 20px 0 0;
+    margin: 30px 10px 0 10px;
 }
+/*END TOP POST*/
+
 
 .tops {
 	padding: 0 30px;
 	/*background-color: #ccc;*/
 }
 .top-playlist {
-	margin: 0 10px 0 0;
+	margin: 10px 5px 0 0;
 	/*padding: 0 30px;*/
 	/*background-color: #ccc;*/
 }
