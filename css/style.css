@@ -77,8 +77,17 @@ body {
 }
 .top-playlist {
 	margin: 10px 5px 0 0;
+	width: 120px;
+	height: 120px;
+	/*object-fit: cover;*/
 	/*padding: 0 30px;*/
 	/*background-color: #ccc;*/
+}
+.modal-playlist {
+	/*position: relative;*/
+	/*position: sticky;*/
+    /*bottom: 31px;*/
+    border: none !important;
 }
 .top-tags {
 	/*padding: 0 30px;*/
@@ -102,8 +111,8 @@ body {
 	position: absolute;
 	height: 52px;
 	width: 52px;
-	float: left;
-	margin: 0 20px;
+	/*object-fit: cover;*/
+	/*margin: 0 20px;*/
 	border: 2px solid #777;
 }
 .nick-thumbnail {
@@ -118,7 +127,21 @@ body {
 
 .post-img {
 	/*margin-top: -17px;*/
+	/*width: 252px;
+	min-height: 150px;
+	max-height: 150px;
+	object-fit: cover;
+	overflow: hidden;*/
+	width: 252px;
+	height: 150px;
 }
+.bg-img-cover {
+	/*margin-top: -17px;*/
+	background-size: cover;
+	background-position: center;
+}
+
+
 .name-post {
     /*position: absolute;*/
     bottom: 33px;
@@ -141,7 +164,9 @@ body {
 	color: #777;
 }
 
-
+.modal-content {
+	background-color: #f7f7f7 !important;
+}
 
 .main-img-in-post {
 	max-height: 300px;
