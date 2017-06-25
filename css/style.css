@@ -9,6 +9,12 @@ body {
 	margin-top: 50px !important;
 	background-color: #f7f7f7 !important;
 }
+
+p {
+	font-size: 18px;
+	line-height: 1.8;
+	color: #777;
+}
 .navbar-fs {
 	background-color: #444;
 }
@@ -124,7 +130,11 @@ body {
 	left: 85px;
 	top: 20px;
 }
-
+.name-playlist-thumbnail {
+	position: absolute;
+    top: 80px;
+    left: 10px;
+}
 .post-img {
 	width: 100%;
 	height: 150px;
@@ -134,7 +144,14 @@ body {
 	background-position: center;
 }
 
+.header-post {
+	position: absolute;
+	top: 50px;
+	height: 300px;
+	width: 90%;
+	margin-left: auto;
 
+}
 .name-post {
     /*position: absolute;*/
     bottom: 33px;
@@ -143,7 +160,17 @@ body {
     border-radius: 4px;
     /*background: rgba(255, 255, 255, 0.7);*/
 }
-
+.name-post-in-post {
+	text-align: center;
+    color: #fff;
+    margin-top: 220px;
+	/*position: absolute;
+    top: 200px;
+    padding: 5px;
+    background: #f7f7f7;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 5px rgba(64, 64, 64, 0.8);*/
+}
 .post-bottom-panel {
 	position: relative;
 	border-bottom: 1px solid #ddd;
@@ -152,19 +179,54 @@ body {
 .post-bottom-panel > img {
 	height: 25px;
 }
+.tag-in-post {
+/*	position: absolute;
+    top: 20px;
+    background: #f7f7f7;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 5px rgba(64, 64, 64, 0.8);*/
+}
 
 .c777 {
 	color: #777;
 }
+
+.author-box-class {
+	z-index: 10;
+}
+.author-box-avatar {
+	position: relative;
+    margin: 20px auto;	
+    width: 90px;
+	height: 90px;
+	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+
+}
+.author-box-nickname {
+	text-align: center;
+}
+.author-box-thanks {
+	text-align: center;
+}
+.author-box-info {
+	padding-top: 10px;
+	border-top: 1px solid #ccc; 
+    font-size: 18px;
+}
+.author-box-info-table {
+	width: 100%;
+}
+
 
 .modal-content {
 	background-color: #f7f7f7 !important;
 }
 
 .main-img-in-post {
-	max-height: 300px;
+	height: 300px;
 	width: 100%;
-	object-fit: cover;
+	box-shadow: inset 0px -150px 155px -51px rgba(0,0,0,1);
 }
 .single-post {
 	margin: 35px 0 40px 0;
