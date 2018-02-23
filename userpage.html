@@ -1,0 +1,538 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block userpage %}
+    <style>
+        body {
+            overflow-y: scroll;
+        }
+    </style>
+{#    <style rel="sytlesheet" href="{% static 'css/select-color.css' %}">#}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Тижні');
+        data.addColumn('number', 'Відвідуваність сайту');
+        data.addColumn('number', 'Написання та редагування статей');
+        data.addColumn('number', 'Створення та редагування плейлистів');
+
+        data.addRows([
+            [1, 37.8, 80.8, 41.8],
+            [2, 30.9, 69.5, 32.4],
+            [3, 25.4, 57, 25.7],
+            [4, 11.7, 18.8, 10.5],
+        ]);
+
+        var options = {
+        chart: {
+          title: 'Активність користувача',
+          subtitle: 'за останні 4 тижні',
+        },
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#f7f7f7',
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+        var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+{#    $(document).ready(function () {#}
+{#        $(this).click(function () {#}
+{#            $("#evPanel3").css('display', 'none')#}
+{#        });#}
+{#        $('a[href="#evPanel1"]').click(function(){#}
+{#            $("#evPanel3").css('display', 'none')#}
+{#        });#}
+{#       $('a[href="#evPanel2"]').click(function(){#}
+{#            $("#evPanel3").css('display', 'none')#}
+{#        });#}
+{#        $('a[href="#evPanel3"]').click(function(){#}
+{#            $("#evPanel3").css('display', 'block')#}
+{#        });#}
+{##}
+{#        $("a#evPanel33").click(function() {#}
+{##}
+{#        });#}
+{##}
+{##}
+{#    })#}
+    </script>
+    <div class="container">
+        <div class="row playlist-header">
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <div style="background-image: url({{ this_user.avatar.url }});" class="author-box-avatar-in-profile bg-img-cover img-circle"></div>
+                    <center>
+                        <h3>{{ this_user.user }}</h3>
+                        {% if Online %}
+                            <h4 style="color: #757575;">Online</h4>
+                        {% else %}
+                            <h4 style="color: #757575;">Остання активність: {{ loctime }}</h4>
+                        {% endif %}
+                    </center>
+                </div>
+            </div>
+
+
+        <div class="col-md-9">
+            <!-- Вкладки (навигация по панелям) -->
+            <ul class="nav nav-tabs" id="myTabEvents">
+                <li
+                        {% if not setting_active %}
+                            class="active"
+                        {% endif %}
+                ><a class="tabnav" data-toggle="tab" href="#evPanel3">Про користувача</a></li>
+                <li><a class="tabnav" data-toggle="tab" href="#evPanel2">Публікації</a></li>
+                <li><a class="tabnav" data-toggle="tab" href="#evPanel1">Цикли статтей</a></li>
+                {% if its_me %}
+                    <li
+                        {% if setting_active %}
+                            class="active"
+                        {% endif %}
+                    ><a class="tabnav" data-toggle="tab" href="#evPanel4">Налаштування</a></li>
+                {% endif %}
+            </ul>
+
+            <!-- Панели -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Панель 1 -->
+                <div id="evPanel3" class="fade tab-pane
+                    {% if not setting_active %}
+                        active in
+                    {% endif %}
+                " style="">
+                  <!-- ABOUT USER -->
+                    <div class="col-md-6 profile-user-top-block">
+                        <div class="col-md-12 profile-user-block">
+                            <h4 class="profile-user-text">Справжнє ім'я:
+                            {% if its_me or this_user.show_full_name and this_user.user.get_full_name %}
+                                <b>{{ this_user.user.get_full_name }}</b>
+                            {% elif not this_user.user.get_full_name %}
+                                <i>не вказано</i>
+                            {% else %}
+                                <i>приховано</i>
+                            {% endif %}
+                        </h4>
+                        <h4 class="profile-user-text">Дата народження:
+                            {% if its_me or this_user.show_date_birthday and this_user.date_birthday %}
+                                <b>{{ this_user.date_birthday }}</b>
+                            {% elif not this_user.date_birthday %}
+                                <i>не вказано</i>
+                            {% else %}
+                                <i>приховано</i>
+                            {% endif %}
+                        </h4>
+                        <h4 class="profile-user-text">Звідки:
+                            {% if its_me or this_user.show_city and this_user.city %}
+                                <b>{{ this_user.city }}</b>
+                            {% elif not this_user.city %}
+                                <i>не вказано</i>
+                            {% else %}
+                                <i>приховано</i>
+                            {% endif %}
+                        </h4>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6  profile-user-top-block">
+                        <div class="col-md-12 profile-user-block">
+                            <table class="">
+                            <tr>
+    {#                            <td><h4 class="namefield">Користувач на інших сайтах:</h4></td>#}
+                                {% if this_user.pGitHub %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pGitHub}}" target="_blank">
+                                            <img src="{% static 'social-img/GitHub.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pGitLab %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pGitLab}}" target="_blank">
+                                            <img src="{% static 'social-img/GitLab.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pLinkedIn %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pLinkedIn}}" target="_blank">
+                                            <img src="{% static 'social-img/linkedIn.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pReplace %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pReplace}}" target="_blank">
+                                            <img src="{% static 'social-img/replace.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pCodeguida %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pCodeguida}}" target="_blank">
+                                            <img src="{% static 'social-img/codeguida.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pFacebook %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pFacebook}}" target="_blank">
+                                            <img src="{% static 'social-img/fb.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                {% if this_user.pTwitter %}
+                                    <td class="td-social-icon">
+                                        <a href="{{ this_user.pTwitter}}" target="_blank">
+                                            <img src="{% static 'social-img/twitter.png' %}" alt="" class="social-icon">
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 profile-user-top-block">
+                        <div class="col-md-12 profile-user-block">
+                            <h4 class="profile-user-text">Email:
+                            {% if its_me or this_user.show_email %}
+                                <b>{{ this_user.user.email }}</b>
+                            {% elif not this_user.user.email %}
+                                <i>не вказано</i>
+                            {% else %}
+                                <i>приховано</i>
+                            {% endif %}
+                            </h4>
+                        </div>
+                    </div>
+
+                    {% if this_user.about_me %}
+                        <div class="col-md-12 profile-user-top-block">
+                                <div class="col-md-12 profile-user-block">
+                                    <h4 class="profile-user-text">Про мене:
+                                        <i>{{ this_user.about_me }}</i>
+                                    </h4>
+                                </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="col-md-12">
+                        <hr>
+                        <h4 style="color: #757575">Обновлення {{ this_user }} за місяць</h4>
+                        {% for action in actions %}
+                            <div class="profile-user-block">
+                                <div class="name-post">
+                                    {% if action.0 == 'Post' %}
+                                        <span class="glyphicon glyphicon-align-left c777"></span>&nbsp;
+                                        <a href="{% url 'out_single_post' action.2 %}">{{ action.1 }}</a>
+                                        {% if action.4 %}
+                                            <span class="glyphicon glyphicon-arrow-right c777"></span>&nbsp;
+                                            <span class="glyphicon glyphicon-list-alt c777"></span>&nbsp;
+                                            <a href="{% url 'output_playlist' action.4.1 %}">{{ action.4.0 }}</a>
+                                        {% endif %}
+                                        <span style="color: #9c9c9c; float: right;">{{ action.3 }}</span>
+                                    {% elif action.0 == 'Playlist' %}
+                                        <span class="glyphicon glyphicon-list-alt c777"></span>&nbsp;
+                                        <a href="{% url 'output_playlist' action.2 %}">{{ action.1 }}</a>
+                                        <span style="color: #9c9c9c; float: right;">{{ action.3 }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <hr>
+                    </div>
+
+{#                    <div class="col-md-12">#}
+{#                        <div id="line_top_x" style="width: 100%; min-height: 300px; max-height: 550px;"></div>#}
+{#                    </div>#}
+                    <hr>
+                </div>
+
+                <!-- Панель 3 -->
+                <div id="evPanel1" class="tab-pane fade">
+                    <div class="col-md-12">
+                        <br>
+                    </div>
+                  <!-- Содержимое панели 1 -->
+                    <div class="col-sm-12 hidden-md hidden-lg">
+                        <h2 class="tops"></h2>
+                        <ul class="nav nav-pills" role="tablist">
+                            {% for playlist in playlists %}
+                                <li role="presentation"><a href="/playlist/id{{ playlist.id }}">{{ playlist.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-12 hidden-xs hidden-sm">
+                        <div class="row">
+                            {% for playlist in playlists %}
+                                <div class="col-md-10 thumbnail post" style="height: 150px; padding: 0">
+
+{#                                        <span style="background-image: url({{ playlist.main_img.url }})" class="img-rounded top-playlist bg-img-cover" alt="" data-toggle="tooltip" data-placement="bottom" title="{{ playlist.name }}"></span>#}
+                                        <div class="col-md-4">
+                                            <a href="{% url "output_playlist" playlist.id %}" >
+{#                                                <img src="{{ playlist.main_img.url }}"  style="max-height: 100%;max-width: 100%;" alt="">#}
+                                                <div style="background-image: url({{ playlist.main_img.url }}); height: 150px" class="bg-img-cover"></div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div style="background: #fff;" class="col-md-12">
+                                                <a href="/playlist/id{{ playlist.id }}" >
+                                                    <h4>{{ playlist.name }}</h4>
+                                                </a>
+                                                <p style="font-size: 16px; line-height: 1.4; color: #999;">{{ playlist.description }}</p>
+                                            </div>
+                                            <div class="col-md-12" style="position: absolute;top: 110px;">
+                                                <p>
+                                                    <span class="glyphicon glyphicon-align-left c777"></span>&nbsp;{{ playlist.count_post }}&nbsp;&nbsp;&nbsp;
+                                                    <span class="glyphicon glyphicon-thumbs-up c777"></span>&nbsp;{{ playlist.like }}&nbsp;&nbsp;&nbsp;
+                                                    <span class="glyphicon glyphicon-eye-open c777"></span>&nbsp;{{ playlist.views }}&nbsp;&nbsp;&nbsp;
+                                                    <span class="glyphicon glyphicon-comment c777"></span>&nbsp;{{ playlist.comments }}&nbsp;&nbsp;&nbsp;
+                                                </p>
+                                            </div>
+                                        </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Панель 3 -->
+                <div id="evPanel2" class="tab-pane fade">
+                  <!-- ПОСТИ -->
+                    <div class="col-md-12">
+                        <br>
+                    </div>
+                  {% for post in posts %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="thumbnail post">
+                            <div class='author-thumbnail'>
+                                <a href="/user/id{{ post.author.id }}">
+                                    <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
+                                    <h5 class="nick-thumbnail">{{ post.author }}</h5>
+                                </a>
+                                <h6 class="thank-thumbnail">{{ post.created_date|date:"d M Y" }}, {{ post.created_date|time:"H:i" }}</h6>
+
+                            </div>
+
+                                {% if post.post_img %}
+                                    <a href="{% url 'out_single_post' post.id %}">
+                                        <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+                                    </a>
+                                {% else %}
+                                    <p class="post-text bg-img-cover">{{ post.text }}</p>
+                                {% endif %}
+            {#            {% static 'blog/img/FSworld-famous.png' %}#}
+                            {% if post.playlist %}
+                                <style>
+                                .name-playlist-{{ post.id }} {
+                                    background-color: {{ post.playlist.color }};
+                                }
+                                .name-playlist-{{ post.id }}:hover {
+                                    background-color: #fff;
+                                    color: {{ post.playlist.color }};
+                                }
+                            </style>
+                            <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
+                                <h5><span class="name-playlist-thumbnail name-playlist-{{ post.id }}">
+                                    {{ post.playlist }}
+                                </span></h5>
+                            </a>
+                            {% endif %}
+                            <div class="post-bottom-panel">
+                                <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;
+                                <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;
+                                <span class="glyphicon glyphicon-comment c777"></span> {{ post.comments_numb }}
+                            </div>
+                            <a href="{% url 'out_single_post' post.id %}">
+                                <h4 class="name-post">{{ post.title }}</h4>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+
+                <!-- Панель 4 -->
+                {% if its_me %}
+                    <div id="evPanel4" class="fade tab-pane
+                        {% if setting_active %}
+                            active in
+                        {% endif %}
+                    " style="">
+                            <div class="container">
+                                <div class="col-md-8 edit_profile_user">
+                                    {% if alert %}
+                                        <div class="col-md-12">
+                                            <br><div class="alert alert-warning col-md-12" role="alert">{{ alert }}</div>
+                                        </div>
+                                    {% endif %}
+
+
+                                    <form action="{% url 'commit_edit_profile_user_avatar' id %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="col-md-6">
+                                            {{ form }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-md btn-default btn-block">Змінити аватар</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-md-12">
+                                        <hr></div>
+
+                                    <!-- ABOUT ME -->
+                                    <form action="{% url 'commit_edit_profile_user_about' id %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="col-md-6">
+                                            <input type="text" id="first_name" class="input_area" name="first_name" placeholder="Справжнє ім'я" value="{{ this_user.user.first_name }}" required><br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="last_name" class="input_area" name="last_name" placeholder="Прізвище" value="{{ this_user.user.last_name }}" required><br>
+                                        </div>
+                                        <div class="col-md-12 switch-block">
+                                            Показувати публічно Ваше ім'я та прізвище?
+                                            <div class="material-switch pull-right">
+                                                <input id="switch1" name="show_public_full_name" type="checkbox"
+                                                        {% if this_user.show_full_name %} checked {% endif %}/>
+                                                <label for="switch1" class="label-warning"></label>
+                                            </div>
+
+                                            <br><br>
+                                            <input id="date" type="date" class="input_area" name="date_birthday" placeholder="2000-01-01 (РРРР-ММ-ДД)" value="{{ this_user.date_birthday|date:"Y-m-d" }}"><br>
+                                            Показувати публічно Вашу дату народження?
+                                            <div class="material-switch pull-right">
+                                                <input id="switch2" name="show_public_date_birthday" type="checkbox"
+                                                        {% if this_user.show_date_birthday %} checked {% endif %}/>
+                                                <label for="switch2" class="label-warning"></label>
+                                            </div>
+
+                                            <br><br>
+                                            <input id="city" type="text" class="input_area" name="city" value="{{ this_user.city }}"><br>
+                                            Показувати публічно Ваше місто?
+                                            <div class="material-switch pull-right">
+                                                <input id="switch3" name="show_public_city" type="checkbox"
+                                                        {% if this_user.show_city %} checked {% endif %}/>
+                                                <label for="switch3" class="label-warning"></label>
+                                            </div>
+
+                                            <br><br>
+
+                                            <textarea name="aboutme" id="aboutme" class="input_textarea" placeholder="Коротко про мене"  rows="5">{{ this_user.about_me }}</textarea><br><br>
+                                            <button type="submit" class="btn btn-md btn-default btn-block">Зберегти інформацію про мене</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-md-12"><hr></div>
+
+                                    <!-- EMAIL -->
+                                    <form action="{% url 'commit_edit_profile_user_email' id %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="col-md-12">
+                                            <input type="email" id="email" class="input_area" name="email" placeholder="Email" value="{{ this_user.user.email }}" required><br>
+                                            </div>
+                                        <div class="switch-block col-md-12">
+                                            Показувати публічно Ваш email?
+                                            <div class="material-switch pull-right">
+                                                <input id="switch4" name="show_public_email" type="checkbox"
+                                                       {% if this_user.show_email %} checked {% endif %}/>
+                                                <label for="switch4" class="label-danger"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-md btn-default btn-block">Зберегти зміни (email)</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-md-12"><hr></div>
+
+                                    <!-- PASSWORD -->
+                                    <form action="{% url 'commit_edit_profile_user_passwd' id %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="col-md-12">
+                                            <label for="old_password">Змінити пароль</label>
+                                            <input type="password" id="old_password" class="input_area" name="old_password" autocomplete="off" placeholder="Старий пароль" required ><br>
+                                            <br>
+                                            <input type="password" id="new_password1" class="input_area" name="new_password1" placeholder="Новий пароль" required autocomplete="off"><br>
+                                            <input type="password" id="new_password2" class="input_area" name="new_password2" placeholder="Повторіть пароль" required autocomplete="off"><br>
+                                            <button type="submit" class="btn btn-md btn-default btn-block">Змінити пароль</button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-md-12"><hr></div>
+
+                                    {# Аккаунти в соц. мережах #}
+                                    <form action="{% url 'commit_edit_profile_user_social' id %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="col-md-6">
+
+                                            <label for="github">
+                                                <img src="{% static 'social-img/GitHub.png' %}" alt="" class="social-icon">
+                                                GitHub
+                                            </label>
+                                            <input type="url" class="input_area" name="github" id="github" value="{% if this_user.pGitHub %}{{ this_user.pGitHub }}{% endif %}">
+
+
+                                            <label for="gitlab">
+                                                <img src="{% static 'social-img/GitLab.png' %}" alt="" class="social-icon">
+                                                GitLab
+                                            </label>
+                                            <input type="url" class="input_area" name="gitlab" id="gitlab" value="{% if this_user.pGitLab %}{{ this_user.pGitLab }}{% endif %}">
+
+
+                                            <label for="linkedin">
+                                                <img src="{% static 'social-img/linkedIn.png' %}" alt="" class="social-icon">
+                                                LinkedIn
+                                            </label>
+                                            <input type="url" class="input_area" name="linkedin" id="linkedin" value="{% if this_user.pLinkedIn %}{{ this_user.pLinkedIn }}{% endif %}">
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <label for="replace">
+                                                <img src="{% static 'social-img/replace.png' %}" alt="" class="social-icon">
+                                                Replace.org.ua
+                                            </label>
+                                            <input type="url" class="input_area" name="replace" id="replace" value="{% if this_user.pReplace %}{{ this_user.pReplace }}{% endif %}">
+
+
+                                            <label for="facebook">
+                                                <img src="{% static 'social-img/fb.png' %}" alt="" class="social-icon">
+                                                Facebook
+                                            </label>
+                                            <input type="url" class="input_area" name="facebook" id="facebook" value="{% if this_user.pFacebook %}{{ this_user.pFacebook }}{% endif %}">
+
+
+                                            <label for="twitter">
+                                                <img src="{% static 'social-img/twitter.png' %}" height="30px" width="35px" alt="" class="social-icon">
+                                                Twitter
+                                            </label>
+                                            <input type="url" class="input_area" name="twitter" id="twitter" value="{% if this_user.pTwitter %}{{ this_user.pTwitter }}{% endif %}">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-md btn-default btn-block">Зберегти зміни</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ namepage }}</title>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/media.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <meta name="google-site-verification" content="dcM76lccfW3vl89FBEpfXtNWgBd6DdImbR_6tP5-WK4" />        
+</head>
+<body>
+    <header>
+{#    hidden-sm hidden-xs#}
+		<nav class="navbar navbar-fixed-top  navbar-fs">
+            <div class="container">
+{#                <div class="row">#}
+                    <a href="{% url 'output_publish' %}">
+                        <img src="{% static 'img/logo.png' %}" alt="" class="logo">
+                        <b style="font-size: 25px; margin-left: -12px;">β</b>
+                    </a>
+                    {% if not user %}
+                        <a href="{% url 'register' %}" class="btn-login">Реєстрація</a>
+                        <a href="{% url 'login' %}" class="btn-login">Вхід</a>
+                    {% else %}
+                        <a href="{% url 'logout' %}" class="btn-login">Вихід</a>
+{#                        <a href="{% url 'edit_profile_user' user.id %}" class="btn-login">Налаштування</a>#}
+                        <a href="{% url 'create_playlist' %}" class="btn-login">Створити цикл статтей</a>
+                        <a href="{% url 'write_post' %}" class="btn-login">Створити запис</a>
+                        <a href="{% url 'profile_user' user.id %}" class="btn-login">{{ user }}</a>
+                    {% endif %}
+{#                </div>#}
+            </div>
+		</nav>
+{#        <nav class="navbar hidden-md hidden-lg navbar-fs">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <a href="{% url 'output_publish' %}">#}
+{#                        <img src="{% static 'img/logo.png' %}" alt="" class="logo">#}
+{#                        <b style="font-size: 25px; margin-left: -12px;">β</b>#}
+{#                    </a>#}
+{#                    {% if not user %}#}
+{#                        <a href="{% url 'register' %}" class="btn-login">Реєстрація</a>#}
+{#                        <a href="{% url 'login' %}" class="btn-login">Вхід</a>#}
+{#                    {% else %}#}
+{#                        <a href="{% url 'logout' %}" class="btn-login">Вихід</a>#}
+{#                        <a href="{% url 'edit_profile_user' user.id %}" class="btn-login">Налаштування</a>#}
+{#                        <a href="{% url 'create_playlist' %}" class="btn-login">Створити плейлист</a>#}
+{#                        <a href="{% url 'write_post' %}" class="btn-login">Створити запис</a>#}
+{#                        <a href="{% url 'profile_user' user.id %}" class="btn-login">{{ user }}</a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#		</nav>#}
+    </header>
+
+    {% block slider %}
+        {# Slider #}
+    {% endblock %}
+
+
+    {% block userpage %}
+        {# profile user #}
+    {% endblock %}
+
+    {% block edituserpage %}
+    {% endblock %}
+
+    {% block login %}
+        {# login page #}
+    {% endblock %}
+
+    {% block tops %}
+        {# TOP-tags and TOP playlist #}
+    {% endblock tops %}
+
+    <!-- POSTS -->
+    {% block blog %}
+        {# posts #}
+    {% endblock %}
+
+
+    {% block singlepost %}
+        {# Single post #}
+    {% endblock %}
+    <!-- END POSTS -->
+
+    {% block playlist %}
+        {# out all post in playlist #}
+    {% endblock %}
+
+    {% block writePost %}
+    {% endblock %}
+
+    {% block createPlaylist %}
+    {% endblock %}
+
+    <br>
+    <div class="col-md-12">
+        <hr>
+        <center>freakspace.xyz | <a href="http://freakspace.xyz/user/id3/">Bogdan Korzhak</a></center>
+        <br>
+    </div>
+{#    <footer class="footer" style="margin-top: 30px;">#}
+{#		<div class="container">#}
+{#			<span class="text-muted">Copyleft 2017</span>#}
+{#		</div>#}
+{#	</footer>#}
+
+
+    <script src="{% static 'lib/jquery-1.10.2/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'lib/jquery-1.10.2/jquery-1.10.2.min.js' %}"></script>
+{#    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>#}
+{#    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
+
+    {#    <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>#}
+{#    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>#}
+    <script language="JavaScript" type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+{#    <script language="JavaScript" type="text/javascript" src="{% static 'js/common.js' %}"></script>#}
+    <script>
+        var url = document.createElement('a');
+        url.href = document.URL;
+        $(document).ready(function () {
+            $("#like_this").click(function() {
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    url: '/ajax'+url.pathname,
+                    success: function(data) {
+                        $("#like").html(data['count-like']);
+                        $("#author-like").html(data['author-like']);
+                        $("#like_this").removeClass('fa-thumbs-o-up c222').addClass('fa-thumbs-up cOrange');
+                    },
+                    dataType: 'json'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

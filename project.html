@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ namepage }}</title>
+	<!-- <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'css/media.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> -->
+  <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/media.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <meta name="google-site-verification" content="dcM76lccfW3vl89FBEpfXtNWgBd6DdImbR_6tP5-WK4" />
+</head>
+<body>
+    <header>
+		<nav class="navbar navbar-fixed-top  navbar-fs">
+            <div class="container">
+                    <a href="{% url 'output_publish' %}">
+                        <img src="{% static 'img/logo.png' %}" alt="" class="logo">
+                        <b style="font-size: 25px; margin-left: -12px;">β</b>
+                    </a>
+                    <!-- {% if not user %} -->
+                        <a href="{% url 'register' %}" class="btn-login">Реєстрація</a>
+                        <a href="{% url 'login' %}" class="btn-login">Вхід</a>
+                    <!-- {% else %} -->
+                        <a href="{% url 'logout' %}" class="btn-login">Вихід</a>
+                        <a href="{% url 'create_playlist' %}" class="btn-login">Створити цикл статтей</a>
+                        <a href="{% url 'write_post' %}" class="btn-login">Створити запис</a>
+                        <a href="{% url 'profile_user' user.id %}" class="btn-login">{{ user }}</a>
+                    <!-- {% endif %} -->
+            </div>
+		</nav>
+
+    </header>
+    <div class="container">
+        <div class="row playlist-header">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <div style="background-image: url('img/cover.jpg');" class="playlist-img bg-img-cover"></div>
+                    <img class="project-logo" alt="">
+                    <div class="project-logo bg-img-cover" style="background-image: url('img/prj_logo.png'); width: 180px; height: 180px;">
+                      &nbsp;
+                    </div>
+                    <h2 class="tops">CubiCo</h2>
+
+                        <!-- <a href="{% url 'edit_playlist' playlist.id %}" class="btn btn-description-playlist" >Змінити</a> -->
+                </div>
+            </div>
+						<div class="col-md-12">
+							<hr>
+						</div>
+						<h3 style="text-align:center; margin: 50px 0 20px 0;">Description project</h3>
+						<div class="col-md-6">
+							<div style="background-image: url('img/prj_logo.png');" class="prj-img bg-img-cover">
+								<h4>Name desc</h4>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<iframe width="100%" height="250" src="https://www.youtube.com/embed/jjv-GEq4Fpg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+						</div>
+						<div class="col-md-12">
+							<br>
+							<div style="background-image: url('img/bg1.jpg');" class="prj-img bg-img-cover">
+								<h4>Name desc</h4>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							</div>
+						</div>
+
+
+						<div class="col-md-12">
+							<hr>
+						</div>
+						<h3 style="text-align: center;">Project team</h3>
+
+						<div class="col-md-3">
+							<div style="background-image: url('img/avatar.jpg');" class="team-box-avatar bg-img-cover img-circle"></div>
+							<h4 class="author-box-nickname ">Bohdan Korzhak</h4>
+							<h5 class="team-desc">Автор проекту. Team-lead</h5>
+						</div>
+						<div class="col-md-3">
+							<div style="background-image: url('img/avatar.jpg');" class="team-box-avatar bg-img-cover img-circle"></div>
+							<h4 class="author-box-nickname ">Bohdan Korzhak</h4>
+							<h5 class="team-desc">Автор проекту. Team-lead</h5>
+						</div>
+						<div class="col-md-3">
+							<div style="background-image: url('img/avatar.jpg');" class="team-box-avatar bg-img-cover img-circle"></div>
+							<h4 class="author-box-nickname ">Bohdan Korzhak</h4>
+							<h5 class="team-desc">Автор проекту. Team-lead</h5>
+						</div>
+						<div class="col-md-3">
+							<div style="background-image: url('img/avatar.jpg');" class="team-box-avatar bg-img-cover img-circle"></div>
+							<h4 class="author-box-nickname ">Bohdan Korzhak</h4>
+							<h5 class="team-desc">Автор проекту. Team-lead</h5>
+						</div>
+
+						<br>
+
+            <div class="col-md-3">
+                <div class="thumbnail author-box-class" id="author-box">
+                    <a href="/user/id{{ playlist.author.id }}">
+                        <div style="background-image: url({{ playlist.author.avatar.url }});" class="author-box-avatar bg-img-cover img-circle"></div>
+                        <h4 class="author-box-nickname ">{{ playlist.author }}</h4>
+                    </a>
+                    <h5 class="author-box-thanks"><span class="glyphicon glyphicon-thumbs-up"></span> {{ post.author.like }}</h5>
+                    <div class="author-box-info">
+                        <table class="author-box-info-table">
+                            <tr align="center">
+                                <td><span class="glyphicon glyphicon-thumbs-up c777"></span><br>{{ playlist.like }}</td>
+                                <td><span class="glyphicon glyphicon-eye-open c777"></span><br>{{ playlist.views }}</td>
+                                <td><span class="glyphicon glyphicon-comment c777"></span><br>{{ playlist.comments }}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .name-playlist {
+            background-color: {{ color }};
+        }
+        .name-playlist:hover {
+            background-color: #fff;
+            color: {{ color }};
+        }
+    </style>
+    <div class="container posts-block">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="thumbnail post">
+                        <div class='author-thumbnail'>
+                            <a href="/user/id{{ playlist.author.id }}">
+                                <div class='avatar-thumbnail img-circle bg-img-cover' style='background-image: url({{ post.author.avatar.url }});' alt=''></div>
+                                <h5 class="nick-thumbnail">{{ post.author }}</h5>
+                            </a>
+                            <h6 class="thank-thumbnail">{{ post.created_date|date:"d M Y" }}, {{ post.created_date|time:"H:i" }}</h6>
+
+                        </div>
+
+                            {% if post.post_img %}
+                                <a href="{% url 'out_single_post' post.id %}">
+                                    <div style="background-image: url({{ post.post_img.url }});" class="post-img bg-img-cover"></div>
+                                </a>
+                            {% else %}
+                                <p class="post-text bg-img-cover">{{ post.text }}</p>
+                            {% endif %}
+
+                            <a href="{% url 'output_playlist' post.playlist_id %}" class="name-playlist-thumbnail-block">
+                                <h5><span class="name-playlist-thumbnail name-playlist">
+                                    {{ post.playlist }}
+                                </span></h5>
+                            </a>
+
+                        <div class="post-bottom-panel">
+                            <span class="glyphicon glyphicon-thumbs-up c777"></span> {{ post.like }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-eye-open c777"></span> {{ post.views }}&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment c777"></span> {{ post.comments_numb }}
+                        </div>
+                        <a href="{% url 'out_single_post' post.id %}">
+                            <h4 class="name-post">{{ post.title }}</h4>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12">
+        <hr>
+        <center>freakspace.xyz | <a href="http://freakspace.xyz/user/id3/">Bogdan Korzhak</a></center>
+        <br>
+    </div>
+
+
+    <!-- <script src="{% static 'lib/jquery-1.10.2/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'lib/jquery-1.10.2/jquery-1.10.2.min.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script> -->
+    <script src="lib/jquery-1.10.2/jquery-1.10.2.js' %}"></script>
+    <script src="lib/jquery-1.10.2/jquery-1.10.2.min.js' %}"></script>
+    <script language="JavaScript" type="text/javascript" src="js/bootstrap.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+        var url = document.createElement('a');
+        url.href = document.URL;
+        $(document).ready(function () {
+            $("#like_this").click(function() {
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    url: '/ajax'+url.pathname,
+                    success: function(data) {
+                        $("#like").html(data['count-like']);
+                        $("#author-like").html(data['author-like']);
+                        $("#like_this").removeClass('fa-thumbs-o-up c222').addClass('fa-thumbs-up cOrange');
+                    },
+                    dataType: 'json'
+                });
+            });
+        });
+    </script>
+
+  </body>
+</html>
